@@ -61,9 +61,9 @@ function Onboarding() {
   async function finish() {
     const { data: u } = await supabase.auth.getUser();
     const { error } = await supabase.from("profiles").upsert({
-      id: u.user!.id, experience: exp[0], skills, goal: goal[0], monthly_target: Number(target), city: city.trim(), onboarded: true, updated_at: new Date().toISOString(),
+      id: u.user!.id, experience: exp[0] ?? null, skills, goal: goal[0] ?? null, monthly_target: Number(target), city: city.trim(), onboarded: true, updated_at: new Date().toISOString(),
     });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     await qc.invalidateQueries({ queryKey: ["profile"] });
     navigate({ to: "/dashboard" });
   }

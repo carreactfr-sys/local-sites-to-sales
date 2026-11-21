@@ -50,14 +50,14 @@ function Prospects() {
   async function save(r: PlaceResult) {
     const { data: u } = await supabase.auth.getUser();
     const { error } = await supabase.from("prospects").insert({ user_id: u.user!.id, ...r });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(`${r.name} ajouté`);
     qc.invalidateQueries({ queryKey: ["prospects"] });
   }
 
   async function update(id: string, patch: { status?: string; price?: number; monthly_fee?: number }) {
     const { error } = await supabase.from("prospects").update({ ...patch, updated_at: new Date().toISOString() }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["prospects"] });
   }
   async function remove(id: string) {

@@ -33,7 +33,7 @@ function Assistant() {
   const p = prospects.find((x) => x.id === pid);
 
   async function run() {
-    if (!p) return toast.error("Ajoute d'abord un prospect depuis la Prospection.");
+    if (!p) { toast.error("Ajoute d'abord un prospect depuis la Prospection."); return; }
     setLoading(true);
     try { setText((await gen({ data: { business: { name: p.name, category: p.category, address: p.address }, channel, tone, offer } })).text); }
     catch (e) { toast.error((e as Error).message); }

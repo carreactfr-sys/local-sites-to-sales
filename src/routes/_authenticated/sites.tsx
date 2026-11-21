@@ -44,7 +44,7 @@ function Sites() {
 
   async function run() {
     const business = p ? { name: p.name, category: p.category, address: p.address, phone: p.phone } : { name, category };
-    if (!business.name) return toast.error("Choisis un prospect ou saisis un nom.");
+    if (!business.name) { toast.error("Choisis un prospect ou saisis un nom."); return; }
     setLoading(true);
     try {
       const r = await gen({ data: { business, style, extra } });

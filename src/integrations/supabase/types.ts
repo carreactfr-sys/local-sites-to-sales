@@ -14,7 +14,146 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          city: string | null
+          created_at: string
+          display_name: string | null
+          experience: string | null
+          goal: string | null
+          id: string
+          monthly_target: number
+          onboarded: boolean
+          skills: string[]
+          updated_at: string
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          experience?: string | null
+          goal?: string | null
+          id: string
+          monthly_target?: number
+          onboarded?: boolean
+          skills?: string[]
+          updated_at?: string
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          experience?: string | null
+          goal?: string | null
+          id?: string
+          monthly_target?: number
+          onboarded?: boolean
+          skills?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      prospects: {
+        Row: {
+          address: string | null
+          category: string | null
+          created_at: string
+          id: string
+          lat: number | null
+          lng: number | null
+          monthly_fee: number
+          name: string
+          notes: string | null
+          phone: string | null
+          place_id: string | null
+          price: number
+          rating: number | null
+          status: string
+          updated_at: string
+          user_id: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          monthly_fee?: number
+          name: string
+          notes?: string | null
+          phone?: string | null
+          place_id?: string | null
+          price?: number
+          rating?: number | null
+          status?: string
+          updated_at?: string
+          user_id: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          monthly_fee?: number
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          place_id?: string | null
+          price?: number
+          rating?: number | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      sites: {
+        Row: {
+          created_at: string
+          html: string
+          id: string
+          prompt: string | null
+          prospect_id: string | null
+          style: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          html: string
+          id?: string
+          prompt?: string | null
+          prospect_id?: string | null
+          style?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          html?: string
+          id?: string
+          prompt?: string | null
+          prospect_id?: string | null
+          style?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sites_prospect_id_fkey"
+            columns: ["prospect_id"]
+            isOneToOne: false
+            referencedRelation: "prospects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

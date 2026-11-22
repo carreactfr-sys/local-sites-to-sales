@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
 
 function planFromProduct(d: Record<string, unknown>): "gratuit" | "pro" | "agence" | null {
-  const txt = JSON.stringify([d["product"], d["plan"], d["access_pass"]]).toLowerCase();
+  const txt = JSON.stringify([d["product"], d["plan"], d["access_pass"], d["plan_id"], d["product_id"]]).toLowerCase();
   if (txt.includes("plan_biyqqgpdyi8bq")) return "agence";
   if (txt.includes("plan_nvugp1batca4o")) return "pro";
   if (txt.includes("plan_uzihuvltr3mlq")) return "gratuit";
@@ -40,18 +40,20 @@ export const Route = createFileRoute("/api/public/whop/webhook")({
         const type = String(evt.type ?? evt.action ?? "").replace("_", ".");
         const d = evt.data ?? {};
         const user = (d["user"] ?? {}) as Record<string, unknown>;
-        const email = String(user["email"] ?? d["email"] ?? "").toLowerCase().trim();
+        const member = (d["member"] ?? {}) as Record<string, unknown>;
+        const email = String(user["email"] ?? member["email"] ?? d["email"] ?? (d["billing_address"] as Record<string, unknown> | undefined)?.["email"] ?? "").toLowerCase().trim();
+        console.log("[whop] event", type, "email?", !!email, "keys", Object.keys(d).join(","), "user", JSON.stringify(user).slice(0, 300), "plan", JSON.stringify(d["plan"] ?? d["plan_id"] ?? null).slice(0, 200));
         if (!email) return new Response("ok");
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { data: list } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 });
         const u = list?.users.find((x) => x.email?.toLowerCase() === email);
-        if (!u) return new Response("ok");
+        if (!u) { console.log("[whop] no account for paid email"); return new Response("ok"); }
 
         let plan: string | null = null;
-        if (type.startsWith("membership.activated") || type === "membership.went_valid") plan = planFromProduct(d);
+        if (type.startsWith("membership.activated") || type === "membership.went_valid" || type.startsWith("payment.succeeded")) plan = planFromProduct(d);
         else if (type.startsWith("membership.deactivated") || type === "membership.went_invalid") plan = "aucun";
-        if (!plan) return new Response("ok");
+        if (!plan) { console.log("[whop] plan not recognised"); return new Response("ok"); }
 
         await supabaseAdmin.from("subscriptions").upsert({ user_id: u.id, plan, source: "whop", status: plan === "aucun" ? "canceled" : "active" }, { onConflict: "user_id" });
         return new Response("ok");

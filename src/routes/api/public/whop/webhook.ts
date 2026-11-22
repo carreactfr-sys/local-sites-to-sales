@@ -3,6 +3,9 @@ import { createHmac, timingSafeEqual } from "crypto";
 
 function planFromProduct(d: Record<string, unknown>): "gratuit" | "pro" | "agence" | null {
   const txt = JSON.stringify([d["product"], d["plan"], d["access_pass"]]).toLowerCase();
+  if (txt.includes("plan_biyqqgpdyi8bq")) return "agence";
+  if (txt.includes("plan_nvugp1batca4o")) return "pro";
+  if (txt.includes("plan_uzihuvltr3mlq")) return "gratuit";
   if (txt.includes("agence")) return "agence";
   if (txt.includes("starter")) return "gratuit";
   if (txt.includes("pro")) return "pro";

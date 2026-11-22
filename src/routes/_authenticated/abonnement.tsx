@@ -15,9 +15,9 @@ import { createCheckoutSession, createPortalSession } from "@/utils/payments.fun
 import { supabase } from "@/integrations/supabase/client";
 
 const WHOP_LINKS: Record<string, string> = {
-  gratuit: "https://whop.com/scalesaas-72e3/starter-e4-b4ee",
-  pro: "https://whop.com/scalesaas-72e3/pro-56-c50b",
-  agence: "https://whop.com/scalesaas-72e3/agence-c9",
+  gratuit: "https://whop.com/checkout/plan_uZihUVlTr3mLQ",
+  pro: "https://whop.com/checkout/plan_NVuGP1baTCA4O",
+  agence: "https://whop.com/checkout/plan_biyqQGPDyi8Bq",
 };
 
 export const Route = createFileRoute("/_authenticated/abonnement")({

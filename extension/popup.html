@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>ScaleSaaS</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"><link rel="stylesheet" href="popup.css"></head>
+<body>
+<header class="top"><div class="brand"><span class="logo">S</span><span class="name">ScaleSaaS</span></div><span id="who" class="who"></span></header>
+<main>
+  <section id="loading" class="center"><div class="spinner"></div></section>
+
+  <section id="login" hidden>
+    <h1>Connexion</h1>
+    <p class="muted">Utilise ton compte ScaleSaaS habituel.</p>
+    <form id="loginForm">
+      <label>E-mail<input id="email" type="email" required autocomplete="email"></label>
+      <label>Mot de passe<input id="password" type="password" required autocomplete="current-password"></label>
+      <button class="btn primary" type="submit" id="loginBtn">Se connecter</button>
+      <p id="loginErr" class="err"></p>
+    </form>
+    <p class="muted small">Pas de compte ? <a id="signupLink" href="#">Créer un compte sur ScaleSaaS</a></p>
+  </section>
+
+  <section id="app" hidden>
+    <div class="card">
+      <span class="eyebrow">Page actuelle</span>
+      <form id="addForm">
+        <label>Nom du commerce<input id="pName" required></label>
+        <label>Site web<input id="pSite" placeholder="Aucun site"></label>
+        <div class="row"><label>Téléphone<input id="pPhone"></label><label>Catégorie<input id="pCat"></label></div>
+        <label>Adresse<input id="pAddr"></label>
+        <button class="btn primary" type="submit" id="addBtn">+ Ajouter aux prospects</button>
+        <p id="addMsg" class="small"></p>
+      </form>
+    </div>
+    <div class="section-head"><span class="eyebrow">Derniers prospects</span><a id="openApp" href="#" class="small">Ouvrir ScaleSaaS →</a></div>
+    <ul id="list" class="list"></ul>
+    <button class="btn ghost" id="logout">Se déconnecter</button>
+  </section>
+</main>
+<script type="module" src="popup.js"></script>
+</body></html>

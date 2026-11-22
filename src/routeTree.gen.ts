@@ -12,7 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as ExtensionAuthRouteImport } from './routes/extension-auth'
+import { Route as AuthenticatedAbonnementRouteImport } from './routes/_authenticated/abonnement'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
@@ -34,10 +37,25 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExtensionAuthRoute = ExtensionAuthRouteImport.update({
   id: '/extension-auth',
   path: '/extension-auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAbonnementRoute = AuthenticatedAbonnementRouteImport.update({
+  id: '/abonnement',
+  path: '/abonnement',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
   id: '/assistant',
@@ -74,7 +92,10 @@ const ApiOauthGoogle_mailReturnRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/extension-auth': typeof ExtensionAuthRoute
+  '/abonnement': typeof AuthenticatedAbonnementRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/assistant': typeof AuthenticatedAssistantRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
@@ -85,7 +106,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/extension-auth': typeof ExtensionAuthRoute
+  '/abonnement': typeof AuthenticatedAbonnementRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/assistant': typeof AuthenticatedAssistantRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
@@ -98,7 +122,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/extension-auth': typeof ExtensionAuthRoute
+  '/_authenticated/abonnement': typeof AuthenticatedAbonnementRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/assistant': typeof AuthenticatedAssistantRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
@@ -111,7 +138,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/confidentialite'
     | '/extension-auth'
+    | '/abonnement'
+    | '/admin'
     | '/assistant'
     | '/dashboard'
     | '/onboarding'
@@ -122,7 +152,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/confidentialite'
     | '/extension-auth'
+    | '/abonnement'
+    | '/admin'
     | '/assistant'
     | '/dashboard'
     | '/onboarding'
@@ -134,7 +167,10 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/confidentialite'
     | '/extension-auth'
+    | '/_authenticated/abonnement'
+    | '/_authenticated/admin'
     | '/_authenticated/assistant'
     | '/_authenticated/dashboard'
     | '/_authenticated/onboarding'
@@ -147,6 +183,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ConfidentialiteRoute: typeof ConfidentialiteRoute
   ExtensionAuthRoute: typeof ExtensionAuthRoute
   ApiOauthGoogle_mailReturnRoute: typeof ApiOauthGoogle_mailReturnRoute
 }
@@ -174,12 +211,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/confidentialite': {
+      id: '/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof ConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/extension-auth': {
       id: '/extension-auth'
       path: '/extension-auth'
       fullPath: '/extension-auth'
       preLoaderRoute: typeof ExtensionAuthRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/abonnement': {
+      id: '/_authenticated/abonnement'
+      path: '/abonnement'
+      fullPath: '/abonnement'
+      preLoaderRoute: typeof AuthenticatedAbonnementRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/assistant': {
       id: '/_authenticated/assistant'
@@ -227,6 +285,8 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAbonnementRoute: typeof AuthenticatedAbonnementRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
@@ -235,6 +295,8 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAbonnementRoute: AuthenticatedAbonnementRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedAssistantRoute: AuthenticatedAssistantRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
@@ -249,6 +311,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ConfidentialiteRoute: ConfidentialiteRoute,
   ExtensionAuthRoute: ExtensionAuthRoute,
   ApiOauthGoogle_mailReturnRoute: ApiOauthGoogle_mailReturnRoute,
 }

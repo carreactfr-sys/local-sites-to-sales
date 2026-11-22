@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { generateMessage } from "@/lib/ai.functions";
-import { prospectsQuery } from "@/lib/queries";
+import { planQuery, prospectsQuery } from "@/lib/queries";
+import { canUse } from "@/lib/plans";
+import { Link } from "@tanstack/react-router";
 import { GmailPanel } from "@/components/GmailPanel";
 
 export const Route = createFileRoute("/_authenticated/assistant")({
   head: () => ({ meta: [{ title: "Assistant commercial — ScaleSaaS" }, { name: "description", content: "Messages de prospection et plan d'action générés par l'IA." }, { property: "og:title", content: "Assistant commercial IA" }, { property: "og:description", content: "Convertis tes prospects en clients." }] }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(prospectsQuery),
+  loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(prospectsQuery), context.queryClient.ensureQueryData(planQuery)]),
   component: Assistant,
 });
 
@@ -24,6 +26,7 @@ const TONES = ["Chaleureux", "Professionnel", "Direct"];
 function Assistant() {
   const qc = useQueryClient();
   const { data: prospects } = useSuspenseQuery(prospectsQuery);
+  const { data: me } = useSuspenseQuery(planQuery);
   const gen = useServerFn(generateMessage);
   const [pid, setPid] = useState(prospects[0]?.id ?? "");
   const [channel, setChannel] = useState(CHANNELS[0]!);
@@ -50,6 +53,16 @@ function Assistant() {
 
   const Pill = ({ list, v, set }: { list: string[]; v: string; set: (s: string) => void }) => (
     <div className="flex flex-wrap gap-2">{list.map((x) => <button key={x} type="button" onClick={() => set(x)} className={`rounded-full border-2 px-3 py-1 text-xs font-medium ${v === x ? "border-ink bg-accent" : "border-border"}`}>{x}</button>)}</div>
+  );
+
+  if (!canUse(me.plan, "assistant")) return (
+    <AppShell title="Assistant commercial" subtitle="Messages personnalisés, relances et plan pour signer tes clients.">
+      <div className="max-w-lg rounded-2xl border-2 border-ink bg-card p-8 shadow-pop">
+        <p className="font-display text-xl font-bold">Réservé aux formules Pro et Agence</p>
+        <p className="mt-2 text-muted-foreground">Passe à la formule Pro pour générer tes messages de prospection avec l'IA.</p>
+        <Button variant="hero" className="mt-5" asChild><Link to="/abonnement">Voir les abonnements</Link></Button>
+      </div>
+    </AppShell>
   );
 
   return (

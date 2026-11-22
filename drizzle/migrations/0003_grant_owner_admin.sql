@@ -1,0 +1,1 @@
+INSERT INTO public.user_roles (user_id, role) SELECT id, 'admin'::public.app_role FROM auth.users WHERE id = 'b6b93f2d-78e1-41b9-9c2c-ac5c84b7936f' ON CONFLICT DO NOTHING;

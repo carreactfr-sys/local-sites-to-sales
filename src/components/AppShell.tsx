@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { LayoutDashboard, MapPin, Sparkles, MessageSquareText, LogOut } from "lucide-react";
+import { LayoutDashboard, MapPin, Sparkles, MessageSquareText, LogOut, CreditCard, Shield } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { planQuery } from "@/lib/queries";
+import { openCookieSettings } from "@/components/CookieBanner";
 import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
@@ -8,10 +11,14 @@ const nav = [
   { to: "/prospects", label: "Prospection", icon: MapPin },
   { to: "/sites", label: "Sites IA", icon: Sparkles },
   { to: "/assistant", label: "Assistant commercial", icon: MessageSquareText },
+  { to: "/abonnement", label: "Abonnement", icon: CreditCard },
 ] as const;
+const adminNav = { to: "/admin", label: "Admin", icon: Shield } as const;
 
 export function AppShell({ children, title, subtitle, action }: { children: ReactNode; title: string; subtitle?: string; action?: ReactNode }) {
   const navigate = useNavigate();
+  const { data: me } = useQuery(planQuery);
+  const items = me?.isAdmin ? [...nav, adminNav] : nav;
   return (
     <div className="flex min-h-screen">
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-sidebar p-5 text-sidebar-foreground md:flex">
@@ -19,7 +26,7 @@ export function AppShell({ children, title, subtitle, action }: { children: Reac
           Scale<span className="text-sidebar-primary">SaaS</span>
         </Link>
         <nav className="flex flex-1 flex-col gap-1">
-          {nav.map((n) => (
+          {items.map((n) => (
             <Link
               key={n.to}
               to={n.to}
@@ -30,6 +37,7 @@ export function AppShell({ children, title, subtitle, action }: { children: Reac
             </Link>
           ))}
         </nav>
+        <div className="mb-2 flex gap-3 px-3 text-xs opacity-60"><Link to="/confidentialite">Confidentialité</Link><button type="button" onClick={openCookieSettings}>Cookies</button></div>
         <button
           onClick={async () => {
             await supabase.auth.signOut();
@@ -42,7 +50,7 @@ export function AppShell({ children, title, subtitle, action }: { children: Reac
       </aside>
       <div className="flex-1">
         <nav className="flex gap-1 overflow-x-auto bg-sidebar p-2 text-sidebar-foreground md:hidden">
-          {nav.map((n) => (
+          {items.map((n) => (
             <Link key={n.to} to={n.to} className="whitespace-nowrap rounded-md px-3 py-2 text-xs" activeProps={{ className: "bg-sidebar-accent font-semibold" }}>
               {n.label}
             </Link>

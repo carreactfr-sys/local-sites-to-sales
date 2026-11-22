@@ -30,3 +30,14 @@ export const sitesQuery = queryOptions({
     return data;
   },
 });
+
+export const planQuery = queryOptions({
+  queryKey: ["plan"],
+  queryFn: async () => {
+    const { data: u } = await supabase.auth.getUser();
+    const { data } = await supabase.rpc("current_plan", { _user_id: u.user!.id });
+    const { data: admin } = await supabase.rpc("has_role", { _user_id: u.user!.id, _role: "admin" });
+    const { asPlan } = await import("./plans");
+    return { plan: asPlan(data as string), isAdmin: admin === true };
+  },
+});

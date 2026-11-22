@@ -15,6 +15,20 @@
       "when": 1795347872922,
       "tag": "0001_app_user_connections",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795349148643,
+      "tag": "0002_plans_and_roles",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795349164025,
+      "tag": "0003_grant_owner_admin",
+      "breakpoints": true
     }
   ]
 }

@@ -29,3 +29,4 @@ use the editor.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
 - Per-user Gmail sending uses the google_mail App User Connector; connection keys are stored encrypted in public.app_user_connections (service-role only) because they are per-user credentials.
+- Plan limits live in src/lib/plans.ts and are mirrored by DB trigger enforce_plan_limit; keep both in sync so the extension and the app enforce the same limits.

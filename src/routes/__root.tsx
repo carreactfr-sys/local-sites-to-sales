@@ -11,6 +11,8 @@ import {
 import { useEffect, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { CookieBanner } from "@/components/CookieBanner";
+import { CONSENT_DEFAULTS } from "@/lib/consent-defaults";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -77,6 +79,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
+    scripts: [{ children: CONSENT_DEFAULTS }],
     // Replace these placeholders with the app's name and description when first building the app.
     // Each content route, / included, must still set its own head(). Never add og:image or
     // twitter:image here: every page without its own would inherit the root's preview image.
@@ -138,6 +141,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Toaster richColors />
+      <CookieBanner />
     </QueryClientProvider>
   );
 }

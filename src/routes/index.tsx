@@ -1,3 +1,4 @@
+import { openCookieSettings } from "@/components/CookieBanner";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin, Sparkles, MessageSquareText, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -62,7 +63,7 @@ function Landing() {
           </div>
         ))}
       </section>
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">© ScaleSaaS</footer>
+      <footer className="flex flex-wrap justify-center gap-4 border-t py-8 text-center text-sm text-muted-foreground"><span>© ScaleSaaS</span><Link to="/confidentialite" className="underline">Confidentialité</Link><button type="button" onClick={openCookieSettings} className="underline">Paramètres des cookies</button></footer>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { generateMessage } from "@/lib/ai.functions";
 import { prospectsQuery } from "@/lib/queries";
+import { GmailPanel } from "@/components/GmailPanel";
 
 export const Route = createFileRoute("/_authenticated/assistant")({
   head: () => ({ meta: [{ title: "Assistant commercial — ScaleSaaS" }, { name: "description", content: "Messages de prospection et plan d'action générés par l'IA." }, { property: "og:title", content: "Assistant commercial IA" }, { property: "og:description", content: "Convertis tes prospects en clients." }] }),
@@ -73,7 +74,9 @@ function Assistant() {
                 <Button size="sm" variant="outline" onClick={() => { navigator.clipboard.writeText(text); toast.success("Copié"); }}><Copy /> Copier</Button>
                 <Button size="sm" variant="ink" onClick={markContacted}><Send /> Marquer contacté</Button>
               </div>
-              <div className="whitespace-pre-wrap text-sm leading-relaxed">{text}</div>
+              {channel === "E-mail" ? (
+                <GmailPanel subject={`Un site web pour ${p?.name ?? "votre commerce"}`} body={text} onSent={markContacted} />
+              ) : <div className="whitespace-pre-wrap text-sm leading-relaxed">{text}</div>}
             </>
           ) : <p className="text-muted-foreground">Choisis un prospect et génère ton message de prospection.</p>}
         </div>

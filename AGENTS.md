@@ -28,3 +28,4 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+- Per-user Gmail sending uses the google_mail App User Connector; connection keys are stored encrypted in public.app_user_connections (service-role only) because they are per-user credentials.

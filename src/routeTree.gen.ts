@@ -18,6 +18,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedProspectsRouteImport } from './routes/_authenticated/prospects'
 import { Route as AuthenticatedSitesRouteImport } from './routes/_authenticated/sites'
+import { Route as ApiOauthGoogle_mailReturnRouteImport } from './routes/api/oauth/google_mail/return'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -63,6 +64,12 @@ const AuthenticatedSitesRoute = AuthenticatedSitesRouteImport.update({
   path: '/sites',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiOauthGoogle_mailReturnRoute =
+  ApiOauthGoogle_mailReturnRouteImport.update({
+    id: '/api/oauth/google_mail/return',
+    path: '/api/oauth/google_mail/return',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/prospects': typeof AuthenticatedProspectsRoute
   '/sites': typeof AuthenticatedSitesRoute
+  '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,6 +91,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/prospects': typeof AuthenticatedProspectsRoute
   '/sites': typeof AuthenticatedSitesRoute
+  '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,6 +104,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/prospects': typeof AuthenticatedProspectsRoute
   '/_authenticated/sites': typeof AuthenticatedSitesRoute
+  '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/prospects'
     | '/sites'
+    | '/api/oauth/google_mail/return'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/prospects'
     | '/sites'
+    | '/api/oauth/google_mail/return'
   id:
     | '__root__'
     | '/'
@@ -128,6 +140,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/_authenticated/prospects'
     | '/_authenticated/sites'
+    | '/api/oauth/google_mail/return'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -135,6 +148,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ExtensionAuthRoute: typeof ExtensionAuthRoute
+  ApiOauthGoogle_mailReturnRoute: typeof ApiOauthGoogle_mailReturnRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -202,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSitesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/oauth/google_mail/return': {
+      id: '/api/oauth/google_mail/return'
+      path: '/api/oauth/google_mail/return'
+      fullPath: '/api/oauth/google_mail/return'
+      preLoaderRoute: typeof ApiOauthGoogle_mailReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -229,6 +250,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ExtensionAuthRoute: ExtensionAuthRoute,
+  ApiOauthGoogle_mailReturnRoute: ApiOauthGoogle_mailReturnRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -8,6 +8,13 @@
       "when": 1795269725701,
       "tag": "0000_scalesaas_core",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795347872922,
+      "tag": "0001_app_user_connections",
+      "breakpoints": true
     }
   ]
 }

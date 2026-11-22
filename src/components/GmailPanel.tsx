@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Mail } from "lucide-react";
+import { Copy, Mail, Send } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -10,10 +11,16 @@ export function GmailPanel({ subject: initialSubject, body: initialBody, onSent 
   useEffect(() => setBody(initialBody), [initialBody]);
   useEffect(() => setSubject(initialSubject), [initialSubject]);
 
-  function openGmail() {
-    const params = new URLSearchParams({ view: "cm", fs: "1", to: to.trim(), su: subject, body });
-    window.open(`https://mail.google.com/mail/?${params.toString()}`, "_blank", "noopener");
-    onSent();
+  const gmailUrl = `https://mail.google.com/mail/?${new URLSearchParams({ view: "cm", fs: "1", to: to.trim(), su: subject, body }).toString()}`;
+  const mailtoUrl = `mailto:${encodeURIComponent(to.trim())}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(`Objet : ${subject}\n\n${body}`);
+      toast.success("E-mail copié");
+    } catch {
+      toast.error("Impossible de copier");
+    }
   }
 
   return (
@@ -22,7 +29,15 @@ export function GmailPanel({ subject: initialSubject, body: initialBody, onSent 
       <Input placeholder="E-mail du commerçant (optionnel)" type="email" value={to} onChange={(e) => setTo(e.target.value)} />
       <Input placeholder="Objet" value={subject} onChange={(e) => setSubject(e.target.value)} />
       <textarea className="min-h-48 rounded-md border bg-card p-3 text-sm" value={body} onChange={(e) => setBody(e.target.value)} />
-      <Button variant="ink" onClick={openGmail}><Mail /> Ouvrir dans Gmail</Button>
+      <Button variant="ink" asChild>
+        <a href={gmailUrl} target="_blank" rel="noopener noreferrer" onClick={onSent}><Mail /> Ouvrir dans Gmail</a>
+      </Button>
+      <div className="grid grid-cols-2 gap-2">
+        <Button variant="outline" asChild>
+          <a href={mailtoUrl} onClick={onSent}><Send /> Mon app e-mail</a>
+        </Button>
+        <Button variant="outline" onClick={copyEmail}><Copy /> Copier l'e-mail</Button>
+      </div>
     </div>
   );
 }

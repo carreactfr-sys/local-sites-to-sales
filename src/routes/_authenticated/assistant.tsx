@@ -55,7 +55,7 @@ function Assistant() {
     <div className="flex flex-wrap gap-2">{list.map((x) => <button key={x} type="button" onClick={() => set(x)} className={`rounded-full border-2 px-3 py-1 text-xs font-medium ${v === x ? "border-ink bg-accent" : "border-border"}`}>{x}</button>)}</div>
   );
 
-  if (!canUse(me.plan, "assistant")) return (
+  if (!canUse(me.plan, "assistant", me.isAdmin)) return (
     <AppShell title="Assistant commercial" subtitle="Messages personnalisés, relances et plan pour signer tes clients.">
       <div className="max-w-lg rounded-2xl border-2 border-ink bg-card p-8 shadow-pop">
         <p className="font-display text-xl font-bold">Réservé aux formules Pro et Agence</p>

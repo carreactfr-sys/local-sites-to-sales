@@ -15,13 +15,13 @@ export const Route = createFileRoute("/_authenticated/abonnement")({
 function Abonnement() {
   const { data } = useSuspenseQuery(planQuery);
   return (
-    <AppShell title="Abonnement" subtitle="Choisis la formule qui suit le rythme de ton agence.">
+    <AppShell title="Abonnement" action={data.isAdmin ? <span className="rounded-xl border-2 border-ink bg-card px-3 py-1.5 text-sm font-semibold shadow-pop">Admin · accès illimité</span> : undefined} subtitle="Choisis la formule qui suit le rythme de ton agence.">
       <div className="grid gap-6 md:grid-cols-3">
         {(Object.keys(PLANS) as PlanId[]).map((id) => {
           const p = PLANS[id]; const current = data.plan === id;
           return (
-            <div key={id} className={`flex flex-col rounded-2xl border-2 bg-card p-6 ${id === "pro" ? "border-ink shadow-pop" : "border-border"}`}>
-              <p className="font-display text-xl font-bold">{p.name}</p>
+            <div key={id} className={`flex flex-col rounded-2xl border-2 bg-card p-6 border-ink shadow-pop`}>
+              <div className="flex items-center justify-between"><p className="font-display text-xl font-bold">{p.name}</p>{id === "pro" && <span className="rounded-full bg-accent px-2 py-0.5 text-xs font-semibold">Populaire</span>}</div>
               <p className="mt-2"><span className="text-4xl font-extrabold">{p.price} €</span><span className="text-muted-foreground"> /mois</span></p>
               <ul className="mt-5 flex-1 space-y-2 text-sm">{p.perks.map((k) => <li key={k} className="flex gap-2"><Check className="size-4 text-primary" />{k}</li>)}</ul>
               {current ? <Button className="mt-6" variant="outline" disabled>Ta formule actuelle</Button>

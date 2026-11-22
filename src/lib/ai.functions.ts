@@ -38,8 +38,9 @@ export const generateSite = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { asPlan, canAdd } = await import("./plans");
     const { data: pl } = await context.supabase.rpc("current_plan", { _user_id: context.userId });
+    const { data: adm } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
     const { count } = await context.supabase.from("sites").select("id", { count: "exact", head: true });
-    if (!canAdd(asPlan(pl as string), "sites", count ?? 0)) throw new Error("Limite de sites de ta formule atteinte. Passe à une formule supérieure dans Abonnement.");
+    if (!canAdd(asPlan(pl as string), "sites", count ?? 0, adm === true)) throw new Error("Limite de sites de ta formule atteinte. Passe à une formule supérieure dans Abonnement.");
     const b = data.business;
     const prompt = `Crée le site vitrine d'une page pour "${b.name}" (${b.category ?? "commerce local"}), situé ${b.address ?? ""}, téléphone ${b.phone ?? "à compléter"}. Style : ${data.style}. ${data.extra}
 Sections : en-tête avec accroche, services, à propos, avis clients, horaires et contact avec bouton d'appel. Texte en français, convaincant, adapté au métier.`;
@@ -62,7 +63,8 @@ export const generateMessage = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { asPlan, canUse } = await import("./plans");
     const { data: pl } = await context.supabase.rpc("current_plan", { _user_id: context.userId });
-    if (!canUse(asPlan(pl as string), "assistant")) throw new Error("L'assistant commercial est inclus dans les formules Pro et Agence.");
+    const { data: adm } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
+    if (!canUse(asPlan(pl as string), "assistant", adm === true)) throw new Error("L'assistant commercial est inclus dans les formules Pro et Agence.");
     const b = data.business;
     const text = await chat(
       "Tu es un coach commercial pour freelances qui vendent des sites web aux commerces locaux. Réponds en français, en markdown simple.",

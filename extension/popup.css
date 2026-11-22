@@ -30,3 +30,5 @@ a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
 .center{display:grid;place-items:center;min-height:300px}
 .spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
 section:not([hidden]){animation:in .2s ease-out}@keyframes in{from{opacity:0;transform:translateY(4px)}}
+.google{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0;background:var(--card)}
+.sep{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:12px;color:var(--muted-foreground)}.sep span{flex:1;height:1px;background:var(--border)}

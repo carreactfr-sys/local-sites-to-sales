@@ -1,4 +1,4 @@
-import { signIn, signOut, getSession, rest } from "./auth.js";
+import { signIn, signInWithGoogle, signOut, getSession, rest } from "./auth.js";
 import { APP_URL } from "./config.js";
 const $ = (id) => document.getElementById(id);
 const show = (id) => ["loading", "login", "app"].forEach((s) => ($(s).hidden = s !== id));
@@ -54,6 +54,13 @@ $("loginForm").addEventListener("submit", async (e) => {
   try { const s = await signIn($("email").value.trim(), $("password").value); $("password").value = ""; enterApp(s); }
   catch (err) { $("loginErr").textContent = err.message === "Invalid login credentials" ? "E-mail ou mot de passe incorrect." : err.message; }
   finally { $("loginBtn").disabled = false; }
+});
+
+$("googleBtn").addEventListener("click", async () => {
+  $("loginErr").textContent = ""; $("googleBtn").disabled = true;
+  try { enterApp(await signInWithGoogle()); }
+  catch (err) { $("loginErr").textContent = /cancel|annul|closed/i.test(err.message) ? "Connexion annulée." : err.message; }
+  finally { $("googleBtn").disabled = false; }
 });
 
 $("addForm").addEventListener("submit", async (e) => {

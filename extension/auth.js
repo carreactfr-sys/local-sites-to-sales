@@ -1,4 +1,4 @@
-import { SUPABASE_URL, SUPABASE_KEY } from "./config.js";
+import { SUPABASE_URL, SUPABASE_KEY, APP_URL } from "./config.js";
 const KEY = "scalesaas_session";
 const H = { apikey: SUPABASE_KEY, "Content-Type": "application/json" };
 
@@ -54,4 +54,17 @@ export async function rest(path, opts = {}) {
   const j = await r.json().catch(() => null);
   if (!r.ok) throw new Error((j && j.message) || "Erreur serveur");
   return j;
+}
+
+export async function signInWithGoogle() {
+  const redirect = chrome.identity.getRedirectURL();
+  const url = `${APP_URL}/extension-auth?redirect=${encodeURIComponent(redirect)}`;
+  const back = await chrome.identity.launchWebAuthFlow({ url, interactive: true });
+  if (!back) throw new Error("Connexion annulée");
+  const p = new URLSearchParams(new URL(back).hash.slice(1));
+  const access_token = p.get("access_token"), refresh_token = p.get("refresh_token");
+  if (!access_token || !refresh_token) throw new Error("Connexion annulée");
+  const r = await fetch(`${SUPABASE_URL}/auth/v1/user`, { headers: { ...H, Authorization: `Bearer ${access_token}` } });
+  if (!r.ok) throw new Error("Session invalide");
+  return save({ access_token, refresh_token, expires_at: Number(p.get("expires_at")), user: await r.json() });
 }

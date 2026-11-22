@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ScaleSaaS — Prospection",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Ajoute des commerces à tes prospects ScaleSaaS depuis n'importe quelle page.",
   "permissions": ["storage", "activeTab", "tabs", "scripting", "identity"],
   "host_permissions": ["https://c--cff3d159-6640-4aa9-824d-3e37adaa5568-prod.lovable.cloud/*", "https://www.google.com/maps/*"],

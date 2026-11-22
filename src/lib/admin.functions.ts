@@ -32,7 +32,7 @@ export const setUserPlan = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
-    const { error } = await context.supabase.from("subscriptions").upsert({ user_id: data.userId, plan: data.plan, granted_by: context.userId, updated_at: new Date().toISOString() });
+    const { error } = await context.supabase.from("subscriptions").upsert({ user_id: data.userId, plan: data.plan, source: "admin", granted_by: context.userId, updated_at: new Date().toISOString() });
     if (error) throw new Error(error.message);
     return { ok: true };
   });

@@ -1,20 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { toast } from "sonner";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { planQuery } from "@/lib/queries";
 import { PLANS, type PlanId } from "@/lib/plans";
-import { PLAN_TO_PRICE } from "@/lib/billing";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { createCheckoutSession, createPortalSession } from "@/utils/payments.functions";
 import { supabase } from "@/integrations/supabase/client";
+
+const WHOP_LINKS: Record<string, string> = {
+  gratuit: "https://whop.com/scalesaas-72e3/starter-e4-b4ee",
+  pro: "https://whop.com/scalesaas-72e3/pro-56-c50b",
+  agence: "https://whop.com/scalesaas-72e3/agence-c9",
+};
 
 export const Route = createFileRoute("/_authenticated/abonnement")({
   head: () => ({ meta: [{ title: "Abonnement — ScaleSaaS" }, { name: "description", content: "Choisis la formule ScaleSaaS adaptée à ton activité." }, { property: "og:title", content: "Abonnements ScaleSaaS" }, { property: "og:description", content: "Starter, Pro ou Agence." }] }),
@@ -45,6 +49,8 @@ function Abonnement() {
       return s;
     },
   });
+  const [email, setEmail] = useState("");
+  useEffect(() => { supabase.auth.getUser().then(({ data: u }) => setEmail(u.user?.email ?? "")); }, []);
   const paid = sub.data?.source === "stripe" && data.plan !== "aucun";
 
   async function openPortal() {
@@ -57,11 +63,10 @@ function Abonnement() {
 
   return (
     <AppShell title="Abonnement" action={data.isAdmin ? <span className="rounded-xl border-2 border-ink bg-card px-3 py-1.5 text-sm font-semibold shadow-pop">Admin · accès illimité</span> : undefined} subtitle="Choisis la formule qui suit le rythme de ton agence.">
-      <PaymentTestModeBanner />
-      {data.plan === "aucun" && !data.isAdmin && <p className="mb-4 rounded-xl border-2 border-ink bg-card p-4 text-sm font-medium shadow-pop">Tu n'as pas encore d'abonnement : choisis une formule pour commencer.</p>}
+      {data.plan === "aucun" && !data.isAdmin && <p className="mb-4 rounded-xl border-2 border-ink bg-card p-4 text-sm font-medium shadow-pop">Paie avec la même adresse e-mail que ton compte ScaleSaaS pour une activation automatique. Tu n'as pas encore d'abonnement : choisis une formule pour commencer.</p>}
       {paid && (
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card p-4 text-sm">
-          <span>{sub.data?.cancel_at_period_end ? "Ton abonnement s'arrête à la fin de la période." : "Ton abonnement est actif."} Pour changer de formule ou résilier :</span>
+          <span>Paiement géré sur Whop (whop.com → Mes abonnements) pour changer ou résilier. {sub.data?.cancel_at_period_end ? "Ton abonnement s'arrête à la fin de la période." : "Ton abonnement est actif."} Pour changer de formule ou résilier :</span>
           <Button variant="outline" onClick={openPortal}>Gérer mon abonnement</Button>
         </div>
       )}
@@ -74,8 +79,7 @@ function Abonnement() {
               <p className="mt-2"><span className="text-4xl font-extrabold">{p.price} €</span><span className="text-muted-foreground"> /mois</span></p>
               <ul className="mt-5 flex-1 space-y-2 text-sm">{p.perks.map((k) => <li key={k} className="flex gap-2"><Check className="size-4 text-primary" />{k}</li>)}</ul>
               {current ? <Button className="mt-6" variant="outline" disabled>Ta formule actuelle</Button>
-                : paid ? <Button className="mt-6" variant="ink" onClick={openPortal}>Changer pour {p.name}</Button>
-                : <Button className="mt-6" variant={id === "pro" ? "hero" : "ink"} onClick={() => setBuying(PLAN_TO_PRICE[id] ?? null)}>S'abonner à {p.name}</Button>}
+                : <Button asChild className="mt-6" variant={id === "pro" ? "hero" : "ink"}><a href={`${WHOP_LINKS[id]}${email ? `?email=${encodeURIComponent(email)}` : ""}`} target="_blank" rel="noopener noreferrer">S'abonner à {p.name}</a></Button>}
             </div>
           );
         })}

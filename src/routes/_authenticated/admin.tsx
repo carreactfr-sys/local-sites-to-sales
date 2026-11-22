@@ -26,7 +26,7 @@ function Admin() {
   if (!me.isAdmin) return <AppShell title="Administration"><p className="text-muted-foreground">Cette page est réservée aux administrateurs.</p></AppShell>;
 
   async function change(userId: string, plan: string) {
-    try { await setPlan({ data: { userId, plan } }); toast.success(`Formule ${PLANS[plan as PlanId].name} attribuée`); qc.invalidateQueries({ queryKey: ["admin-users"] }); qc.invalidateQueries({ queryKey: ["plan"] }); }
+    try { await setPlan({ data: { userId, plan } }); toast.success(plan === "aucun" ? "Abonnement retiré" : `Formule ${PLANS[plan as PlanId].name} attribuée`); qc.invalidateQueries({ queryKey: ["admin-users"] }); qc.invalidateQueries({ queryKey: ["plan"] }); }
     catch (e) { toast.error((e as Error).message); }
   }
   const rows = (users.data ?? []).filter((u) => `${u.email} ${u.name}`.toLowerCase().includes(q.toLowerCase()));

@@ -17,7 +17,7 @@ function Abonnement() {
   return (
     <AppShell title="Abonnement" action={data.isAdmin ? <span className="rounded-xl border-2 border-ink bg-card px-3 py-1.5 text-sm font-semibold shadow-pop">Admin · accès illimité</span> : undefined} subtitle="Choisis la formule qui suit le rythme de ton agence.">
       <div className="grid gap-6 md:grid-cols-3">
-        {(Object.keys(PLANS) as PlanId[]).map((id) => {
+        {(Object.keys(PLANS) as PlanId[]).filter((id) => id !== "aucun").map((id) => {
           const p = PLANS[id]; const current = data.plan === id;
           return (
             <div key={id} className={`flex flex-col rounded-2xl border-2 bg-card p-6 border-ink shadow-pop`}>

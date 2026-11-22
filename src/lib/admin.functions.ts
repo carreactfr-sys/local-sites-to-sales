@@ -19,7 +19,7 @@ export const listUsers = createServerFn({ method: "POST" })
       id: u.id,
       email: u.email ?? "",
       name: profs?.find((p) => p.id === u.id)?.display_name ?? "",
-      plan: subs?.find((s) => s.user_id === u.id)?.plan ?? "gratuit",
+      plan: subs?.find((s) => s.user_id === u.id)?.plan ?? "aucun",
       created_at: u.created_at,
     }));
   });
@@ -27,7 +27,7 @@ export const listUsers = createServerFn({ method: "POST" })
 export const setUserPlan = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((i: { userId: string; plan: string }) => {
-    if (!["gratuit", "pro", "agence"].includes(i.plan)) throw new Error("Formule inconnue");
+    if (!["aucun", "gratuit", "pro", "agence"].includes(i.plan)) throw new Error("Formule inconnue");
     return { userId: String(i.userId), plan: i.plan };
   })
   .handler(async ({ data, context }) => {

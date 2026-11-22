@@ -14,3 +14,7 @@ describe("restrictions v2", () => {
   it("pro : 50 prospects max", () => { expect(canAdd("pro", "prospects", 49)).toBe(true); expect(canAdd("pro", "prospects", 50)).toBe(false); });
   it("admin sans limite", () => { expect(canAdd("gratuit", "prospects", 500, true)).toBe(true); expect(canUse("gratuit", "assistant", true)).toBe(true); });
 });
+
+describe("pas d'abonnement", () => {
+  it("ne peut rien faire", () => { expect(canAdd("aucun", "prospects", 0)).toBe(false); expect(canAdd("aucun", "sites", 0)).toBe(false); expect(canUse("aucun", "assistant")).toBe(false); });
+});

@@ -51,7 +51,12 @@ function Abonnement() {
   });
   const [email, setEmail] = useState("");
   useEffect(() => { supabase.auth.getUser().then(({ data: u }) => setEmail(u.user?.email ?? "")); }, []);
-  const paid = sub.data?.source === "stripe" && data.plan !== "aucun";
+  const paid = (sub.data?.source === "stripe" || sub.data?.source === "whop") && data.plan !== "aucun";
+  useEffect(() => {
+    const refresh = () => { qc.invalidateQueries({ queryKey: ["plan"] }); qc.invalidateQueries({ queryKey: ["my-sub"] }); };
+    window.addEventListener("focus", refresh);
+    return () => window.removeEventListener("focus", refresh);
+  }, [qc]);
 
   async function openPortal() {
     try {
@@ -67,7 +72,9 @@ function Abonnement() {
       {paid && (
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card p-4 text-sm">
           <span>Paiement géré sur Whop (whop.com → Mes abonnements) pour changer ou résilier. {sub.data?.cancel_at_period_end ? "Ton abonnement s'arrête à la fin de la période." : "Ton abonnement est actif."} Pour changer de formule ou résilier :</span>
-          <Button variant="outline" onClick={openPortal}>Gérer mon abonnement</Button>
+          {sub.data?.source === "whop"
+            ? <Button asChild variant="outline"><a href="https://whop.com/@me/settings/memberships/" target="_blank" rel="noopener noreferrer">Gérer mon abonnement</a></Button>
+            : <Button variant="outline" onClick={openPortal}>Gérer mon abonnement</Button>}
         </div>
       )}
       <div className="grid gap-6 md:grid-cols-3">

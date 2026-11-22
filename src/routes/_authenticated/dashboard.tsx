@@ -46,14 +46,11 @@ function Dashboard() {
   ];
 
   return (
-    <AppShell title={`Salut ${profile.display_name ?? ""} 👋`} subtitle={`Prospection à ${profile.city} · objectif ${profile.monthly_target} €/mois`}>
-      <div className="mb-6 flex max-w-md items-center gap-4 rounded-2xl border bg-card p-4">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground"><Chrome className="h-5 w-5" /></div>
-        <div className="flex-1">
-          <p className="font-bold">{profile.display_name ? `${profile.display_name}, ` : ""}prospecte depuis Chrome</p>
-          <Button size="sm" className="mt-2" onClick={installExtension}>Installer l'extension ScaleSaaS sur Google Chrome</Button>
-        </div>
-      </div>
+    <AppShell title={`Salut ${profile.display_name ?? ""} 👋`} subtitle={`Prospection à ${profile.city} · objectif ${profile.monthly_target} €/mois`} action={
+      <button onClick={installExtension} className="flex items-center gap-2 rounded-xl border bg-card px-3 py-2 text-sm font-semibold transition-colors hover:border-primary">
+        <Chrome className="size-4 text-primary" /> Installer l'extension Chrome
+      </button>
+    }>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.l} className="rounded-xl border bg-card p-5">

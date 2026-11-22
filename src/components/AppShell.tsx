@@ -10,7 +10,7 @@ const nav = [
   { to: "/assistant", label: "Assistant commercial", icon: MessageSquareText },
 ] as const;
 
-export function AppShell({ children, title, subtitle }: { children: ReactNode; title: string; subtitle?: string }) {
+export function AppShell({ children, title, subtitle, action }: { children: ReactNode; title: string; subtitle?: string; action?: ReactNode }) {
   const navigate = useNavigate();
   return (
     <div className="flex min-h-screen">
@@ -49,9 +49,12 @@ export function AppShell({ children, title, subtitle }: { children: ReactNode; t
           ))}
         </nav>
         <main className="mx-auto max-w-6xl p-6 md:p-10">
-          <header className="mb-8">
+          <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
+            <div>
             <h1 className="text-3xl font-extrabold md:text-4xl">{title}</h1>
             {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
+            </div>
+            {action}
           </header>
           {children}
         </main>

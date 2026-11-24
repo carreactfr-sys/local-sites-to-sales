@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
 
 function planFromProduct(d: Record<string, unknown>): "gratuit" | "pro" | "agence" | null {
-  const txt = JSON.stringify([d["product"], d["plan"], d["access_pass"], d["plan_id"], d["product_id"]]).toLowerCase();
+  const txt = JSON.stringify([d["product"], d["plan"], d["access_pass"], d["plan_id"], d["product_id"], d["variant_id"], d["line_items"]]).toLowerCase();
   if (txt.includes("plan_biyqqgpdyi8bq")) return "agence";
   if (txt.includes("plan_nvugp1batca4o")) return "pro";
   if (txt.includes("plan_uzihuvltr3mlq")) return "gratuit";
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/api/public/whop/webhook")({
         const d = evt.data ?? {};
         const user = (d["user"] ?? {}) as Record<string, unknown>;
         const member = (d["member"] ?? {}) as Record<string, unknown>;
-        const email = String(user["email"] ?? member["email"] ?? d["email"] ?? (d["billing_address"] as Record<string, unknown> | undefined)?.["email"] ?? "").toLowerCase().trim();
+        const email = String(d["customer_email"] ?? user["email"] ?? member["email"] ?? d["email"] ?? (d["billing_address"] as Record<string, unknown> | undefined)?.["email"] ?? "").toLowerCase().trim();
         console.log("[whop] event", type, "email?", !!email, "keys", Object.keys(d).join(","), "user", JSON.stringify(user).slice(0, 300), "plan", JSON.stringify(d["plan"] ?? d["plan_id"] ?? null).slice(0, 200));
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const log = (result: string) => supabaseAdmin.from("whop_events").insert({ event_type: type, email: email || null, result, payload: evt as never });

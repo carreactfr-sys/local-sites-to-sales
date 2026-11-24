@@ -1,7 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { LovableMark } from "@lovable.dev/cloud-auth-js/react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -57,7 +56,7 @@ function AuthPage() {
     setLoading(false);
   }
 
-  async function social(p: "google" | "lovable") {
+  async function social(p: "google") {
     const r = await lovable.auth.signInWithOAuth(p, { redirect_uri: window.location.origin + "/auth" });
     if (r.error) toast.error("Connexion impossible.");
   }
@@ -75,7 +74,6 @@ function AuthPage() {
           <p className="mt-2 text-sm text-muted-foreground">{mode === "in" ? "Connecte-toi à ton espace." : "Lance ton agence en 2 minutes."}</p>
           <div className="mt-8 flex flex-col gap-3">
             <Button type="button" variant="outline" className="h-11" onClick={() => social("google")}><GoogleG /> Continuer avec Google</Button>
-            <Button type="button" variant="outline" className="h-11" onClick={() => social("lovable")}><LovableMark /> Continuer avec Lovable</Button>
           </div>
           <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />ou<span className="h-px flex-1 bg-border" /></div>
           <form onSubmit={submit} className="flex flex-col gap-4">

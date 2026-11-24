@@ -21,6 +21,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedProspectsRouteImport } from './routes/_authenticated/prospects'
 import { Route as AuthenticatedSitesRouteImport } from './routes/_authenticated/sites'
+import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiOauthGoogle_mailReturnRouteImport } from './routes/api/oauth/google_mail/return'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as ApiPublicWhopWebhookRouteImport } from './routes/api/public/whop/webhook'
@@ -84,6 +85,11 @@ const AuthenticatedSitesRoute = AuthenticatedSitesRouteImport.update({
   path: '/sites',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiPublicChatRoute = ApiPublicChatRouteImport.update({
+  id: '/api/public/chat',
+  path: '/api/public/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiOauthGoogle_mailReturnRoute =
   ApiOauthGoogle_mailReturnRouteImport.update({
     id: '/api/oauth/google_mail/return',
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/prospects': typeof AuthenticatedProspectsRoute
   '/sites': typeof AuthenticatedSitesRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
   '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/api/public/whop/webhook': typeof ApiPublicWhopWebhookRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/prospects': typeof AuthenticatedProspectsRoute
   '/sites': typeof AuthenticatedSitesRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
   '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/api/public/whop/webhook': typeof ApiPublicWhopWebhookRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/prospects': typeof AuthenticatedProspectsRoute
   '/_authenticated/sites': typeof AuthenticatedSitesRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
   '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/api/public/whop/webhook': typeof ApiPublicWhopWebhookRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/prospects'
     | '/sites'
+    | '/api/public/chat'
     | '/api/oauth/google_mail/return'
     | '/api/public/payments/webhook'
     | '/api/public/whop/webhook'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/prospects'
     | '/sites'
+    | '/api/public/chat'
     | '/api/oauth/google_mail/return'
     | '/api/public/payments/webhook'
     | '/api/public/whop/webhook'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/_authenticated/prospects'
     | '/_authenticated/sites'
+    | '/api/public/chat'
     | '/api/oauth/google_mail/return'
     | '/api/public/payments/webhook'
     | '/api/public/whop/webhook'
@@ -210,6 +222,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   ExtensionAuthRoute: typeof ExtensionAuthRoute
+  ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiOauthGoogle_mailReturnRoute: typeof ApiOauthGoogle_mailReturnRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   ApiPublicWhopWebhookRoute: typeof ApiPublicWhopWebhookRoute
@@ -301,6 +314,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSitesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/chat': {
+      id: '/api/public/chat'
+      path: '/api/public/chat'
+      fullPath: '/api/public/chat'
+      preLoaderRoute: typeof ApiPublicChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/oauth/google_mail/return': {
       id: '/api/oauth/google_mail/return'
       path: '/api/oauth/google_mail/return'
@@ -354,6 +374,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
   ExtensionAuthRoute: ExtensionAuthRoute,
+  ApiPublicChatRoute: ApiPublicChatRoute,
   ApiOauthGoogle_mailReturnRoute: ApiOauthGoogle_mailReturnRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   ApiPublicWhopWebhookRoute: ApiPublicWhopWebhookRoute,

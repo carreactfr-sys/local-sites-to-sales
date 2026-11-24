@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { CookieBanner } from "@/components/CookieBanner";
+import { SupportChat } from "@/components/SupportChat";
 import { CONSENT_DEFAULTS } from "@/lib/consent-defaults";
 
 import appCss from "../styles.css?url";
@@ -142,6 +143,7 @@ function RootComponent() {
       <Outlet />
       <Toaster richColors />
       <CookieBanner />
+      <SupportChat />
     </QueryClientProvider>
   );
 }

@@ -26,13 +26,13 @@ export const Route = createFileRoute("/api/public/whop/webhook")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const secret = process.env["WHOP_WEBHOOK_SECRET"];
-        if (!secret) return new Response("Not configured", { status: 500 });
+        const secrets = [process.env["WHOP_WEBHOOK_SECRET"], process.env["WHOP_SANDBOX_WEBHOOK_SECRET"]].filter((x): x is string => !!x);
+        if (!secrets.length) return new Response("Not configured", { status: 500 });
         const body = await request.text();
         const id = request.headers.get("webhook-id") ?? "";
         const ts = request.headers.get("webhook-timestamp") ?? "";
         const sig = request.headers.get("webhook-signature") ?? "";
-        if (!id || !ts || !sig || !verify(secret, id, ts, sig, body)) return new Response("Invalid signature", { status: 401 });
+        if (!id || !ts || !sig || !secrets.some((k) => verify(k, id, ts, sig, body))) return new Response("Invalid signature", { status: 401 });
         if (Math.abs(Date.now() / 1000 - Number(ts)) > 600) return new Response("Stale", { status: 401 });
 
         let evt: { type?: string; action?: string; data?: Record<string, unknown> };

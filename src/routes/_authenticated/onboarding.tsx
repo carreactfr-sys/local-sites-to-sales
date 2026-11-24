@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { profileQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({ meta: [{ title: "Bienvenue — Lead SaaS" }, { name: "description", content: "Personnalise ton espace Lead SaaS." }, { property: "og:title", content: "Onboarding Lead SaaS" }, { property: "og:description", content: "Personnalise ton parcours." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
@@ -64,7 +65,7 @@ function Onboarding() {
       id: u.user!.id, experience: exp[0] ?? null, skills, goal: goal[0] ?? null, monthly_target: Number(target), city: city.trim(), onboarded: true, updated_at: new Date().toISOString(),
     });
     if (error) { toast.error(error.message); return; }
-    await qc.invalidateQueries({ queryKey: ["profile"] });
+    await qc.fetchQuery({ ...profileQuery, staleTime: 0 });
     navigate({ to: "/dashboard" });
   }
 

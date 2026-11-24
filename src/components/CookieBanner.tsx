@@ -17,7 +17,7 @@ export function CookieBanner() {
 
   useEffect(() => {
     setGpc((navigator as unknown as { globalPrivacyControl?: boolean }).globalPrivacyControl === true);
-    needsAnswer(["analytics"]).then((n) => n && setOpen(true));
+    if (readChoice("analytics") == null) setOpen(true); else needsAnswer(["analytics"]).then((n) => n && setOpen(true));
     const show = () => { setAnalytics(readChoice("analytics") === "granted"); setSettings(true); setOpen(true); };
     window.addEventListener(OPEN_COOKIE_SETTINGS, show);
     const off = onConsentChange(() => setAnalytics(readChoice("analytics") === "granted"));
@@ -29,7 +29,7 @@ export function CookieBanner() {
   const done = (c: "granted" | "denied") => { saveChoices({ analytics: c }); setOpen(false); setSettings(false); };
 
   return (
-    <div ref={ref} tabIndex={-1} role="region" aria-label="Cookies" className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl rounded-2xl border-2 border-ink bg-card p-5 shadow-pop outline-none">
+    <div ref={ref} tabIndex={-1} role="region" aria-label="Cookies" className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-xl rounded-2xl border-2 border-ink bg-card p-5 shadow-pop outline-none">
       <p className="font-display text-lg font-bold">Ta vie privée</p>
       <p className="mt-1 text-sm text-muted-foreground">
         Nous comptons les visites sans cookies. Si tu acceptes, nous mesurons aussi les clics. <Link to="/confidentialite" className="underline">Politique de confidentialité</Link>

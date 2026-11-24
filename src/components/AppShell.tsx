@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { LayoutDashboard, MapPin, Sparkles, MessageSquareText, LogOut, CreditCard, Shield, LifeBuoy } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { planQuery } from "@/lib/queries";
-import { openCookieSettings } from "@/components/CookieBanner";
+import { CookieBanner, openCookieSettings } from "@/components/CookieBanner";
 import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
@@ -68,6 +68,7 @@ export function AppShell({ children, title, subtitle, action }: { children: Reac
           {children}
         </main>
       </div>
+      <CookieBanner />
     </div>
   );
 }

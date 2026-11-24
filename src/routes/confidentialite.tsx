@@ -2,14 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { openCookieSettings } from "@/components/CookieBanner";
 
 export const Route = createFileRoute("/confidentialite")({
-  head: () => ({ meta: [{ title: "Politique de confidentialité — ScaleSaaS" }, { name: "description", content: "Comment ScaleSaaS collecte et protège tes données." }, { property: "og:title", content: "Confidentialité — ScaleSaaS" }, { property: "og:description", content: "Données collectées, usages et tes droits." }, { property: "og:type", content: "article" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "Politique de confidentialité — Lead SaaS" }, { name: "description", content: "Comment Lead SaaS collecte et protège tes données." }, { property: "og:title", content: "Confidentialité — Lead SaaS" }, { property: "og:description", content: "Données collectées, usages et tes droits." }, { property: "og:type", content: "article" }, { name: "twitter:card", content: "summary" }] }),
   component: Privacy,
 });
 
 function Privacy() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-14">
-      <Link to="/" className="font-display text-2xl font-extrabold">Scale<span className="text-primary">SaaS</span></Link>
+      <Link to="/" className="font-display text-2xl font-extrabold">Lead{" "}<span className="text-primary">SaaS</span></Link>
       <h1 className="mt-10 text-4xl font-extrabold">Politique de confidentialité</h1>
       <div className="mt-8 space-y-6 leading-relaxed [&_h2]:mt-8 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-bold">
         <h2>Données de ton compte</h2>

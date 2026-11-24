@@ -1,10 +1,10 @@
 # Local Sites To Sales
 
-ScaleSaaS — Description en termes MVP
+Lead SaaS — Description en termes MVP
 
 Produit : SaaS de création et de commercialisation de sites web assisté par IA
 
-ScaleSaaS est une plateforme SaaS qui permet à n'importe quel utilisateur de lancer une activité de création et de vente de sites web pour les commerces locaux, sans savoir coder.
+Lead SaaS est une plateforme SaaS qui permet à n'importe quel utilisateur de lancer une activité de création et de vente de sites web pour les commerces locaux, sans savoir coder.
 
 L'objectif du produit est de transformer un débutant en entrepreneur capable de trouver des prospects, créer des sites web avec l'IA et vendre ses prestations.
 
@@ -104,7 +104,7 @@ Signature du client et vente du site avec possibilité d'abonnement.
 
 3. Stack technique identifiée
 
-D'après les informations publiées par ScaleSaaS :
+D'après les informations publiées par Lead SaaS :
 
 Technologie
 
@@ -134,7 +134,6 @@ Whop
 
 Paiements et abonnements
 
-ScaleSaaS.io+1
 
 4. Proposition de valeur (Value Proposition)
 
@@ -154,7 +153,7 @@ Assistant commercial IA.
 
 Dashboard de gestion d'activité.
 
-En résumé : ScaleSaaS est un SaaS de type AI Website Agency Builder. Il ne sert pas simplement à créer des sites web : il fournit tout le workflow nécessaire pour trouver des clients, créer leurs sites et commercialiser ses prestations.
+En résumé : Lead SaaS est un SaaS de type AI Website Agency Builder. Il ne sert pas simplement à créer des sites web : il fournit tout le workflow nécessaire pour trouver des clients, créer leurs sites et commercialiser ses prestations.
 
 This project was built with [Lovable](https://lovable.dev).
 

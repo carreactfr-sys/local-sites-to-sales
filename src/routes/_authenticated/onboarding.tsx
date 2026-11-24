@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
-  head: () => ({ meta: [{ title: "Bienvenue — ScaleSaaS" }, { name: "description", content: "Personnalise ton espace ScaleSaaS." }, { property: "og:title", content: "Onboarding ScaleSaaS" }, { property: "og:description", content: "Personnalise ton parcours." }] }),
+  head: () => ({ meta: [{ title: "Bienvenue — Lead SaaS" }, { name: "description", content: "Personnalise ton espace Lead SaaS." }, { property: "og:title", content: "Onboarding Lead SaaS" }, { property: "og:description", content: "Personnalise ton parcours." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Onboarding,
 });
 

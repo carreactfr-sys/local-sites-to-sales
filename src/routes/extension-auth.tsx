@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/extension-auth")({
   head: () => ({
     meta: [
-      { title: "Connexion de l'extension — ScaleSaaS" },
-      { name: "description", content: "Autorise l'extension Chrome ScaleSaaS à accéder à ton compte." },
-      { property: "og:title", content: "Connexion de l'extension — ScaleSaaS" },
-      { property: "og:description", content: "Relie l'extension Chrome à ton compte ScaleSaaS." },
+      { title: "Connexion de l'extension — Lead SaaS" },
+      { name: "description", content: "Autorise l'extension Chrome Lead SaaS à accéder à ton compte." },
+      { property: "og:title", content: "Connexion de l'extension — Lead SaaS" },
+      { property: "og:description", content: "Relie l'extension Chrome à ton compte Lead SaaS." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -56,20 +56,20 @@ function ExtensionAuth() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-6">
       <div className="w-full max-w-sm rounded-xl border bg-card p-8 text-center shadow-sm">
-        <p className="font-display text-2xl font-extrabold">Scale<span className="text-primary">SaaS</span></p>
+        <p className="font-display text-2xl font-extrabold">Lead{" "}<span className="text-primary">SaaS</span></p>
         {!ready ? null : !redirect ? (
-          <p className="mt-6 text-sm text-muted-foreground">Ouvre cette page depuis l'extension Chrome ScaleSaaS.</p>
+          <p className="mt-6 text-sm text-muted-foreground">Ouvre cette page depuis l'extension Chrome Lead SaaS.</p>
         ) : session ? (
           <>
             <h1 className="mt-6 text-xl font-extrabold">Autoriser l'extension ?</h1>
-            <p className="mt-2 text-sm text-muted-foreground">L'extension Chrome ScaleSaaS pourra accéder au compte <b>{session.user.email}</b>.</p>
+            <p className="mt-2 text-sm text-muted-foreground">L'extension Chrome Lead SaaS pourra accéder au compte <b>{session.user.email}</b>.</p>
             <Button variant="hero" className="mt-6 h-11 w-full" onClick={authorize}>Autoriser</Button>
             <button className="mt-4 text-sm text-muted-foreground underline" onClick={() => supabase.auth.signOut()}>Utiliser un autre compte</button>
           </>
         ) : (
           <>
             <h1 className="mt-6 text-xl font-extrabold">Connexion avec Google</h1>
-            <p className="mt-2 text-sm text-muted-foreground">Utilise ton compte ScaleSaaS habituel.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Utilise ton compte Lead SaaS habituel.</p>
             <Button variant="outline" className="mt-6 h-11 w-full" onClick={google}>Continuer avec Google</Button>
           </>
         )}

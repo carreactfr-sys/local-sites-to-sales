@@ -87,9 +87,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ScaleSaaS — Lance ton agence web IA" },
+      { title: "Lead SaaS — Lance ton agence web IA" },
       { name: "description", content: "Trouve des commerces locaux, crée leurs sites avec l'IA et vends tes prestations." },
-      { property: "og:title", content: "ScaleSaaS" },
+      { property: "og:title", content: "Lead SaaS" },
       { property: "og:description", content: "Ton agence web IA, de la prospection à la vente." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

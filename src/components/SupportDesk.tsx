@@ -100,7 +100,7 @@ export function SupportDesk({ admin = false }: { admin?: boolean }) {
                 const mine = m.from_admin === admin;
                 return (
                   <div key={m.id} className={`max-w-[80%] rounded-xl px-4 py-2 text-sm ${mine ? "self-end bg-primary text-primary-foreground" : "self-start border bg-background"}`}>
-                    <p className="mb-1 text-xs opacity-70">{m.from_admin ? "Support ScaleSaaS" : admin ? "Utilisateur" : "Toi"} · {fmt(m.created_at)}</p>
+                    <p className="mb-1 text-xs opacity-70">{m.from_admin ? "Support Lead SaaS" : admin ? "Utilisateur" : "Toi"} · {fmt(m.created_at)}</p>
                     <p className="whitespace-pre-wrap">{m.body}</p>
                   </div>
                 );

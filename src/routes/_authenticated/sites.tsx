@@ -13,7 +13,7 @@ import { generateSite } from "@/lib/ai.functions";
 import { prospectsQuery, sitesQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/_authenticated/sites")({
-  head: () => ({ meta: [{ title: "Sites IA — ScaleSaaS" }, { name: "description", content: "Génère des sites vitrines avec l'IA." }, { property: "og:title", content: "Générateur de sites IA" }, { property: "og:description", content: "Un site pro en un clic." }] }),
+  head: () => ({ meta: [{ title: "Sites IA — Lead SaaS" }, { name: "description", content: "Génère des sites vitrines avec l'IA." }, { property: "og:title", content: "Générateur de sites IA — Lead SaaS" }, { property: "og:description", content: "Un site pro en un clic." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(prospectsQuery), context.queryClient.ensureQueryData(sitesQuery)]),
   component: Sites,
 });

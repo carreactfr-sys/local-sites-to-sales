@@ -9,11 +9,11 @@ const EXTENSION_URL = ""; // Lien Chrome Web Store (vide = téléchargement du Z
 
 function installExtension() {
   if (EXTENSION_URL) { window.open(EXTENSION_URL, "_blank", "noopener"); return; }
-  fetch("/scalesaas-extension.zip").then((r) => { if (!r.ok) throw new Error("Téléchargement impossible"); return r.blob(); }).then((b) => { const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "scalesaas-extension.zip"; a.click(); URL.revokeObjectURL(a.href); }).catch((e) => alert(e.message));
+  fetch("/scalesaas-extension.zip").then((r) => { if (!r.ok) throw new Error("Téléchargement impossible"); return r.blob(); }).then((b) => { const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "lead-saas-extension.zip"; a.click(); URL.revokeObjectURL(a.href); }).catch((e) => alert(e.message));
 }
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — ScaleSaaS" }, { name: "description", content: "Vue d'ensemble de ton activité." }, { property: "og:title", content: "Dashboard ScaleSaaS" }, { property: "og:description", content: "Suis prospects, clients et revenus." }] }),
+  head: () => ({ meta: [{ title: "Dashboard — Lead SaaS" }, { name: "description", content: "Vue d'ensemble de ton activité." }, { property: "og:title", content: "Dashboard Lead SaaS" }, { property: "og:description", content: "Suis prospects, clients et revenus." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(profileQuery), context.queryClient.ensureQueryData(prospectsQuery), context.queryClient.ensureQueryData(sitesQuery)]),
   component: Dashboard,
 });

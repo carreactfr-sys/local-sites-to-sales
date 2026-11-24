@@ -24,7 +24,7 @@ export function AppShell({ children, title, subtitle, action }: { children: Reac
     <div className="flex min-h-screen">
       <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-sidebar p-5 text-sidebar-foreground md:flex">
         <Link to="/dashboard" className="mb-10 font-display text-2xl font-extrabold">
-          Scale<span className="text-sidebar-primary">SaaS</span>
+          Lead{" "}<span className="text-sidebar-primary">SaaS</span>
         </Link>
         <nav className="flex flex-1 flex-col gap-1">
           {items.map((n) => (

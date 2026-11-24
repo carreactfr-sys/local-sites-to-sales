@@ -10,9 +10,9 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Connexion — ScaleSaaS" },
-      { name: "description", content: "Crée ton compte ScaleSaaS ou connecte-toi à ton espace." },
-      { property: "og:title", content: "Connexion — ScaleSaaS" },
+      { title: "Connexion — Lead SaaS" },
+      { name: "description", content: "Crée ton compte Lead SaaS ou connecte-toi à ton espace." },
+      { property: "og:title", content: "Connexion — Lead SaaS" },
       { property: "og:description", content: "Accède à ton agence web IA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -64,7 +64,7 @@ function AuthPage() {
   return (
     <div className="grid min-h-screen md:grid-cols-2">
       <div className="relative hidden overflow-hidden bg-ink p-12 text-ink-foreground md:flex md:flex-col md:justify-between">
-        <Link to="/" className="font-display text-2xl font-extrabold">Scale<span className="text-primary">SaaS</span></Link>
+        <Link to="/" className="font-display text-2xl font-extrabold">Lead{" "}<span className="text-primary">SaaS</span></Link>
         <p className="font-display text-5xl font-extrabold leading-tight">Ton premier client est à <span className="text-primary">deux rues</span> d'ici.</p>
         <p className="text-sm opacity-60">Prospection · Sites IA · Vente</p>
       </div>

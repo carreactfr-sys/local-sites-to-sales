@@ -15,7 +15,7 @@ import { Link } from "@tanstack/react-router";
 import { GmailPanel } from "@/components/GmailPanel";
 
 export const Route = createFileRoute("/_authenticated/assistant")({
-  head: () => ({ meta: [{ title: "Assistant commercial — ScaleSaaS" }, { name: "description", content: "Messages de prospection et plan d'action générés par l'IA." }, { property: "og:title", content: "Assistant commercial IA" }, { property: "og:description", content: "Convertis tes prospects en clients." }] }),
+  head: () => ({ meta: [{ title: "Assistant commercial — Lead SaaS" }, { name: "description", content: "Messages de prospection et plan d'action générés par l'IA." }, { property: "og:title", content: "Assistant commercial IA — Lead SaaS" }, { property: "og:description", content: "Convertis tes prospects en clients." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(prospectsQuery), context.queryClient.ensureQueryData(planQuery)]),
   component: Assistant,
 });

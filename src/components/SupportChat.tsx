@@ -10,7 +10,7 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 const SUGGESTIONS = ["Quelles sont les formules ?", "Comment installer l'extension Chrome ?", "Comment fonctionne la génération de sites ?"];
 
 function Badge({ big = false }: { big?: boolean }) {
-  return <span className={`grid shrink-0 place-items-center rounded-lg border-2 border-ink bg-accent text-foreground font-display font-extrabold ${big ? "size-12 text-2xl" : "size-8 text-sm"}`}>S</span>;
+  return <span className={`grid shrink-0 place-items-center rounded-lg border-2 border-ink bg-accent text-foreground font-display font-extrabold ${big ? "size-12 text-2xl" : "size-8 text-sm"}`}>L</span>;
 }
 
 export function SupportChat() {
@@ -32,17 +32,17 @@ export function SupportChat() {
         <div className="fixed bottom-24 right-4 z-50 flex h-[min(560px,75vh)] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border-2 border-ink bg-card shadow-pop">
           <div className="flex items-center gap-3 border-b-2 border-ink bg-sidebar p-3 text-sidebar-foreground">
             <Badge />
-            <div className="flex-1"><p className="font-display font-bold leading-tight">Scaly</p><p className="text-xs opacity-70">Assistant ScaleSaaS</p></div>
+            <div className="flex-1"><p className="font-display font-bold leading-tight">Scaly</p><p className="text-xs opacity-70">Assistant Lead SaaS</p></div>
             <button type="button" aria-label="Fermer" onClick={() => setOpen(false)} className="rounded-md p-1 hover:bg-sidebar-accent"><X className="size-4" /></button>
           </div>
           <Conversation className="flex-1">
             <ConversationContent className="gap-4 p-4">
               {messages.length === 0 ? (
-                <ConversationEmptyState icon={<Badge big />} title="Bonjour, je suis Scaly" description="Une question sur ScaleSaaS, les formules ou l'extension ?">
+                <ConversationEmptyState icon={<Badge big />} title="Bonjour, je suis Scaly" description="Une question sur Lead SaaS, les formules ou l'extension ?">
                   <div className="flex flex-col items-center gap-3 text-center">
                     <Badge big />
                     <p className="font-display font-bold">Bonjour, je suis Scaly</p>
-                    <p className="text-sm text-muted-foreground">Une question sur ScaleSaaS, les formules ou l'extension ?</p>
+                    <p className="text-sm text-muted-foreground">Une question sur Lead SaaS, les formules ou l'extension ?</p>
                     <div className="mt-2 flex flex-col gap-2">
                       {SUGGESTIONS.map((s) => <button key={s} type="button" onClick={() => send(s)} className="rounded-full border-2 border-border px-3 py-1 text-xs hover:border-ink">{s}</button>)}
                     </div>

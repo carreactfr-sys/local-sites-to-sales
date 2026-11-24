@@ -21,7 +21,7 @@ const WHOP_LINKS: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/_authenticated/abonnement")({
-  head: () => ({ meta: [{ title: "Abonnement — ScaleSaaS" }, { name: "description", content: "Choisis la formule ScaleSaaS adaptée à ton activité." }, { property: "og:title", content: "Abonnements ScaleSaaS" }, { property: "og:description", content: "Starter, Pro ou Agence." }] }),
+  head: () => ({ meta: [{ title: "Abonnement — Lead SaaS" }, { name: "description", content: "Choisis la formule Lead SaaS adaptée à ton activité." }, { property: "og:title", content: "Abonnements Lead SaaS" }, { property: "og:description", content: "Starter, Pro ou Agence." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(planQuery),
   component: Abonnement,
 });
@@ -68,7 +68,7 @@ function Abonnement() {
 
   return (
     <AppShell title="Abonnement" action={data.isAdmin ? <span className="rounded-xl border-2 border-ink bg-card px-3 py-1.5 text-sm font-semibold shadow-pop">Admin · accès illimité</span> : undefined} subtitle="Choisis la formule qui suit le rythme de ton agence.">
-      {data.plan === "aucun" && !data.isAdmin && <p className="mb-4 rounded-xl border-2 border-ink bg-card p-4 text-sm font-medium shadow-pop">Paie avec la même adresse e-mail que ton compte ScaleSaaS pour une activation automatique. Tu n'as pas encore d'abonnement : choisis une formule pour commencer.</p>}
+      {data.plan === "aucun" && !data.isAdmin && <p className="mb-4 rounded-xl border-2 border-ink bg-card p-4 text-sm font-medium shadow-pop">Paie avec la même adresse e-mail que ton compte Lead SaaS pour une activation automatique. Tu n'as pas encore d'abonnement : choisis une formule pour commencer.</p>}
       {paid && (
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card p-4 text-sm">
           <span>Paiement géré sur Whop (whop.com → Mes abonnements) pour changer ou résilier. {sub.data?.cancel_at_period_end ? "Ton abonnement s'arrête à la fin de la période." : "Ton abonnement est actif."} Pour changer de formule ou résilier :</span>

@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ScaleSaaS — Lance ton agence web IA sans coder" },
+      { title: "Lead SaaS — Lance ton agence web IA sans coder" },
       { name: "description", content: "Trouve des commerces sans site, génère leur site avec l'IA et vends tes prestations. Tout le workflow en un seul outil." },
-      { property: "og:title", content: "ScaleSaaS — Ton agence web IA" },
+      { property: "og:title", content: "Lead SaaS — Ton agence web IA" },
       { property: "og:description", content: "De la recherche de commerces à la signature du client, sans écrire une ligne de code." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -28,7 +28,7 @@ function Landing() {
   return (
     <div className="min-h-screen">
       <header className="mx-auto flex max-w-6xl items-center justify-between p-6">
-        <span className="font-display text-2xl font-extrabold">Scale<span className="text-primary">SaaS</span></span>
+        <span className="font-display text-2xl font-extrabold">Lead{" "}<span className="text-primary">SaaS</span></span>
         <Button asChild variant="ink"><Link to="/auth">Se connecter</Link></Button>
       </header>
       <section className="relative overflow-hidden">
@@ -63,7 +63,7 @@ function Landing() {
           </div>
         ))}
       </section>
-      <footer className="flex flex-wrap justify-center gap-4 border-t py-8 text-center text-sm text-muted-foreground"><span>© ScaleSaaS</span><Link to="/confidentialite" className="underline">Confidentialité</Link><button type="button" onClick={openCookieSettings} className="underline">Paramètres des cookies</button></footer>
+      <footer className="flex flex-wrap justify-center gap-4 border-t py-8 text-center text-sm text-muted-foreground"><span>© Lead SaaS</span><Link to="/confidentialite" className="underline">Confidentialité</Link><button type="button" onClick={openCookieSettings} className="underline">Paramètres des cookies</button></footer>
     </div>
   );
 }

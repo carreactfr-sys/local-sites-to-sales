@@ -21,6 +21,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedProspectsRouteImport } from './routes/_authenticated/prospects'
 import { Route as AuthenticatedSitesRouteImport } from './routes/_authenticated/sites'
+import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated/support'
 import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiOauthGoogle_mailReturnRouteImport } from './routes/api/oauth/google_mail/return'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -85,6 +86,11 @@ const AuthenticatedSitesRoute = AuthenticatedSitesRouteImport.update({
   path: '/sites',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSupportRoute = AuthenticatedSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicChatRoute = ApiPublicChatRouteImport.update({
   id: '/api/public/chat',
   path: '/api/public/chat',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/prospects': typeof AuthenticatedProspectsRoute
   '/sites': typeof AuthenticatedSitesRoute
+  '/support': typeof AuthenticatedSupportRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/prospects': typeof AuthenticatedProspectsRoute
   '/sites': typeof AuthenticatedSitesRoute
+  '/support': typeof AuthenticatedSupportRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/prospects': typeof AuthenticatedProspectsRoute
   '/_authenticated/sites': typeof AuthenticatedSitesRoute
+  '/_authenticated/support': typeof AuthenticatedSupportRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/oauth/google_mail/return': typeof ApiOauthGoogle_mailReturnRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/prospects'
     | '/sites'
+    | '/support'
     | '/api/public/chat'
     | '/api/oauth/google_mail/return'
     | '/api/public/payments/webhook'
@@ -192,6 +202,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/prospects'
     | '/sites'
+    | '/support'
     | '/api/public/chat'
     | '/api/oauth/google_mail/return'
     | '/api/public/payments/webhook'
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/_authenticated/prospects'
     | '/_authenticated/sites'
+    | '/_authenticated/support'
     | '/api/public/chat'
     | '/api/oauth/google_mail/return'
     | '/api/public/payments/webhook'
@@ -314,6 +326,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSitesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/support': {
+      id: '/_authenticated/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof AuthenticatedSupportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/chat': {
       id: '/api/public/chat'
       path: '/api/public/chat'
@@ -353,6 +372,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedProspectsRoute: typeof AuthenticatedProspectsRoute
   AuthenticatedSitesRoute: typeof AuthenticatedSitesRoute
+  AuthenticatedSupportRoute: typeof AuthenticatedSupportRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -363,6 +383,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedProspectsRoute: AuthenticatedProspectsRoute,
   AuthenticatedSitesRoute: AuthenticatedSitesRoute,
+  AuthenticatedSupportRoute: AuthenticatedSupportRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

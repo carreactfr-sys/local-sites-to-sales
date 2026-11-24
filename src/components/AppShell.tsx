@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { LayoutDashboard, MapPin, Sparkles, MessageSquareText, LogOut, CreditCard, Shield } from "lucide-react";
+import { LayoutDashboard, MapPin, Sparkles, MessageSquareText, LogOut, CreditCard, Shield, LifeBuoy } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { planQuery } from "@/lib/queries";
 import { openCookieSettings } from "@/components/CookieBanner";
@@ -12,6 +12,7 @@ const nav = [
   { to: "/sites", label: "Sites IA", icon: Sparkles },
   { to: "/assistant", label: "Assistant commercial", icon: MessageSquareText },
   { to: "/abonnement", label: "Abonnement", icon: CreditCard },
+  { to: "/support", label: "Support", icon: LifeBuoy },
 ] as const;
 const adminNav = { to: "/admin", label: "Admin", icon: Shield } as const;
 

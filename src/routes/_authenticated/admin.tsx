@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
+import { SupportDesk } from "@/components/SupportDesk";
 import { Input } from "@/components/ui/input";
 import { planQuery } from "@/lib/queries";
 import { listUsers, setUserPlan } from "@/lib/admin.functions";
@@ -46,6 +47,8 @@ function Admin() {
           </div>
         ))}
       </div>
+      <h2 className="mb-4 mt-12 text-2xl font-extrabold">Demandes de support</h2>
+      <SupportDesk admin />
     </AppShell>
   );
 }

@@ -13,7 +13,9 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "De la recherche de commerces à la signature du client, sans écrire une ligne de code." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://leadsaasai.lovable.app/" },
     ],
+    links: [{ rel: "canonical", href: "https://leadsaasai.lovable.app/" }],
   }),
   component: Landing,
 });

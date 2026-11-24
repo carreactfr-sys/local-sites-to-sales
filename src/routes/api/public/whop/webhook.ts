@@ -37,25 +37,26 @@ export const Route = createFileRoute("/api/public/whop/webhook")({
 
         let evt: { type?: string; action?: string; data?: Record<string, unknown> };
         try { evt = JSON.parse(body); } catch { return new Response("Bad JSON", { status: 400 }); }
-        const type = String(evt.type ?? evt.action ?? "").replace("_", ".");
+        const type = String(evt.type ?? evt.action ?? "").replaceAll("_", ".");
         const d = evt.data ?? {};
         const user = (d["user"] ?? {}) as Record<string, unknown>;
         const member = (d["member"] ?? {}) as Record<string, unknown>;
         const email = String(user["email"] ?? member["email"] ?? d["email"] ?? (d["billing_address"] as Record<string, unknown> | undefined)?.["email"] ?? "").toLowerCase().trim();
         console.log("[whop] event", type, "email?", !!email, "keys", Object.keys(d).join(","), "user", JSON.stringify(user).slice(0, 300), "plan", JSON.stringify(d["plan"] ?? d["plan_id"] ?? null).slice(0, 200));
-        if (!email) return new Response("ok");
-
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const log = (result: string) => supabaseAdmin.from("whop_events").insert({ event_type: type, email: email || null, result, payload: evt as never });
+        if (!email) { await log("e-mail absent (permission member:email:read manquante ?)"); return new Response("ok"); }
         const { data: list } = await supabaseAdmin.auth.admin.listUsers({ perPage: 1000 });
         const u = list?.users.find((x) => x.email?.toLowerCase() === email);
-        if (!u) { console.log("[whop] no account for paid email"); return new Response("ok"); }
+        if (!u) { await log("aucun compte avec cet e-mail"); return new Response("ok"); }
 
         let plan: string | null = null;
         if (type.startsWith("membership.activated") || type === "membership.went_valid" || type.startsWith("payment.succeeded")) plan = planFromProduct(d);
         else if (type.startsWith("membership.deactivated") || type === "membership.went_invalid") plan = "aucun";
-        if (!plan) { console.log("[whop] plan not recognised"); return new Response("ok"); }
+        if (!plan) { await log("événement ignoré ou formule non reconnue"); return new Response("ok"); }
 
         await supabaseAdmin.from("subscriptions").upsert({ user_id: u.id, plan, source: "whop", status: plan === "aucun" ? "canceled" : "active" }, { onConflict: "user_id" });
+        await log("formule appliquée : " + plan);
         return new Response("ok");
       },
     },

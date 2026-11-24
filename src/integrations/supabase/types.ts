@@ -306,6 +306,33 @@ export type Database = {
         }
         Relationships: []
       }
+      whop_events: {
+        Row: {
+          created_at: string
+          email: string | null
+          event_type: string | null
+          id: string
+          payload: Json | null
+          result: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          event_type?: string | null
+          id?: string
+          payload?: Json | null
+          result?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          event_type?: string | null
+          id?: string
+          payload?: Json | null
+          result?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { LayoutDashboard, MapPin, Sparkles, MessageSquareText, LogOut, CreditCard, Shield, LifeBuoy } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { planQuery } from "@/lib/queries";
 import { CookieBanner, openCookieSettings } from "@/components/CookieBanner";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,6 +18,7 @@ const adminNav = { to: "/admin", label: "Admin", icon: Shield } as const;
 
 export function AppShell({ children, title, subtitle, action }: { children: ReactNode; title: string; subtitle?: string; action?: ReactNode }) {
   const navigate = useNavigate();
+  const qc = useQueryClient();
   const { data: me } = useQuery(planQuery);
   const items = me?.isAdmin ? [...nav, adminNav] : nav;
   return (
@@ -41,8 +42,10 @@ export function AppShell({ children, title, subtitle, action }: { children: Reac
         <div className="mb-2 flex gap-3 px-3 text-xs opacity-60"><Link to="/confidentialite">Confidentialité</Link><button type="button" onClick={openCookieSettings}>Cookies</button></div>
         <button
           onClick={async () => {
+            await qc.cancelQueries();
+            qc.clear();
             await supabase.auth.signOut();
-            navigate({ to: "/" });
+            navigate({ to: "/", replace: true });
           }}
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm opacity-70 hover:bg-sidebar-accent hover:opacity-100"
         >

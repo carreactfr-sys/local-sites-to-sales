@@ -16,9 +16,49 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://leadsaasai.lovable.app/" },
     ],
     links: [{ rel: "canonical", href: "https://leadsaasai.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "Lead SaaS",
+          url: "https://leadsaasai.lovable.app/",
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web",
+          inLanguage: "fr",
+          description: "Outil pour trouver des commerces locaux sans site web, générer leur site avec l'IA et vendre des prestations web.",
+          offers: plans.map((p) => ({ "@type": "Offer", name: p.name, price: String(p.price), priceCurrency: "EUR" })),
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "Lead SaaS", url: "https://leadsaasai.lovable.app/" }),
+      },
+    ],
   }),
   component: Landing,
 });
+
+const plans = [
+  { name: "Starter", price: 5, d: "10 prospects et 1 site généré par l'IA." },
+  { name: "Pro", price: 29, d: "50 prospects, 20 sites et l'assistant commercial IA." },
+  { name: "Agence", price: 79, d: "Prospects, sites et assistant sans limite." },
+];
+
+const audiences = [
+  { t: "Freelances web", d: "Trouve des clients près de chez toi au lieu d'attendre les demandes." },
+  { t: "Agences locales", d: "Remplis ton carnet de commandes avec des commerces qui n'ont pas encore de site." },
+  { t: "Débutants", d: "Lance une activité de création de sites sans savoir coder." },
+];
+
+const faq = [
+  { q: "Comment Lead SaaS trouve-t-il des clients ?", a: "Tu choisis une ville et un métier : Lead SaaS repère sur la carte les commerces locaux qui n'ont pas de site web. Ce sont tes prospects." },
+  { q: "Faut-il savoir coder pour créer les sites ?", a: "Non. L'IA génère un site vitrine adapté au métier du commerce en un clic. Tu peux le montrer au commerçant avant même de le rencontrer." },
+  { q: "Comment vendre le site au commerçant ?", a: "L'assistant commercial rédige ton message de prospection et un plan d'action. Tu peux l'envoyer directement depuis Gmail." },
+  { q: "Combien coûte Lead SaaS ?", a: "Trois formules mensuelles sans engagement : Starter à 5 €, Pro à 29 € et Agence à 79 €. Tu peux résilier quand tu veux." },
+  { q: "Existe-t-il une extension Chrome ?", a: "Oui. Elle récupère le nom, le téléphone, l'adresse et la catégorie d'un commerce depuis Google Maps ou son site, puis l'ajoute à tes prospects." },
+];
 
 const steps = [
   { icon: MapPin, t: "Trouve", d: "Repère sur la carte les commerces sans site web dans ta ville." },
@@ -65,6 +105,44 @@ function Landing() {
             <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
           </div>
         ))}
+      </section>
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <h2 className="text-4xl font-extrabold">Pour qui est Lead SaaS ?</h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {audiences.map((a) => (
+            <div key={a.t} className="rounded-xl border-2 border-ink bg-card p-6">
+              <h3 className="text-xl font-bold">{a.t}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{a.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <h2 className="text-4xl font-extrabold">Les formules</h2>
+        <p className="mt-2 text-muted-foreground">Abonnement mensuel, sans engagement.</p>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {plans.map((p) => (
+            <div key={p.name} className="rounded-xl border-2 border-ink bg-card p-6 shadow-pop">
+              <h3 className="text-2xl font-bold">{p.name}</h3>
+              <p className="mt-2 font-display text-4xl font-extrabold">{p.price} €<span className="text-base font-normal text-muted-foreground">/mois</span></p>
+              <p className="mt-3 text-sm text-muted-foreground">{p.d}</p>
+            </div>
+          ))}
+        </div>
+        <Button asChild variant="hero" size="lg" className="mt-8 h-12 text-base">
+          <Link to="/auth">Créer mon compte <ArrowRight /></Link>
+        </Button>
+      </section>
+      <section className="mx-auto max-w-3xl px-6 py-16">
+        <h2 className="text-4xl font-extrabold">Questions fréquentes</h2>
+        <div className="mt-8 space-y-6">
+          {faq.map((f) => (
+            <div key={f.q}>
+              <h3 className="text-lg font-bold">{f.q}</h3>
+              <p className="mt-1 text-muted-foreground">{f.a}</p>
+            </div>
+          ))}
+        </div>
       </section>
       <footer className="flex flex-wrap justify-center gap-4 border-t py-8 text-center text-sm text-muted-foreground"><span>© Lead SaaS</span><Link to="/confidentialite" className="underline">Confidentialité</Link><button type="button" onClick={openCookieSettings} className="underline">Paramètres des cookies</button></footer>
     </div>

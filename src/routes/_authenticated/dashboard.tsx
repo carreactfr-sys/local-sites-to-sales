@@ -13,6 +13,7 @@ function installExtension() {
 }
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [{ title: "Dashboard — Lead SaaS" }, { name: "description", content: "Vue d'ensemble de ton activité." }, { property: "og:title", content: "Dashboard Lead SaaS" }, { property: "og:description", content: "Suis prospects, clients et revenus." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(profileQuery), context.queryClient.ensureQueryData(prospectsQuery), context.queryClient.ensureQueryData(sitesQuery)]),
   component: Dashboard,

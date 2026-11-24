@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { profileQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [{ title: "Bienvenue — Lead SaaS" }, { name: "description", content: "Personnalise ton espace Lead SaaS." }, { property: "og:title", content: "Onboarding Lead SaaS" }, { property: "og:description", content: "Personnalise ton parcours." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Onboarding,
 });

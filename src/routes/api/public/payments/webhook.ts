@@ -36,6 +36,7 @@ async function syncSubscription(sub: any, env: StripeEnv, deleted = false) {
 }
 
 export const Route = createFileRoute("/api/public/payments/webhook")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {

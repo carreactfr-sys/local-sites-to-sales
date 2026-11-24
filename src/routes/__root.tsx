@@ -78,6 +78,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  staticData: { sitemap: false },
   head: () => ({
     scripts: [{ children: CONSENT_DEFAULTS }],
     // Replace these placeholders with the app's name and description when first building the app.
@@ -86,6 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "b_eCGWSb6qXp7tUoHyttBrlhGqpxHDimyKLAu_Uw1Tw" },
       { title: "Lead SaaS — Lance ton agence web IA" },
       { name: "description", content: "Trouve des commerces locaux, crée leurs sites avec l'IA et vends tes prestations." },
       { property: "og:title", content: "Lead SaaS" },

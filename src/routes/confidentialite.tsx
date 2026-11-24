@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { openCookieSettings } from "@/components/CookieBanner";
 
 export const Route = createFileRoute("/confidentialite")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [{ title: "Politique de confidentialité — Lead SaaS" }, { name: "description", content: "Comment Lead SaaS collecte et protège tes données." }, { property: "og:title", content: "Confidentialité — Lead SaaS" }, { property: "og:description", content: "Données collectées, usages et tes droits." }, { property: "og:type", content: "article" }, { name: "twitter:card", content: "summary" }] }),
   component: Privacy,
 });

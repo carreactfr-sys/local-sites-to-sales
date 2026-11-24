@@ -4,6 +4,7 @@ import { ArrowRight, MapPin, Sparkles, MessageSquareText, TrendingUp } from "luc
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Lead SaaS — Lance ton agence web IA sans coder" },

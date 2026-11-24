@@ -23,6 +23,7 @@ function verify(secret: string, id: string, ts: string, sigHeader: string, body:
 }
 
 export const Route = createFileRoute("/api/public/whop/webhook")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {

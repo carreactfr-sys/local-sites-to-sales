@@ -15,6 +15,7 @@ import { profileQuery, prospectsQuery, STATUSES } from "@/lib/queries";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/prospects")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [{ title: "Prospection — Lead SaaS" }, { name: "description", content: "Trouve des commerces sans site web sur la carte." }, { property: "og:title", content: "Prospection Lead SaaS" }, { property: "og:description", content: "Carte des commerces à démarcher." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(prospectsQuery), context.queryClient.ensureQueryData(profileQuery)]),
   component: Prospects,

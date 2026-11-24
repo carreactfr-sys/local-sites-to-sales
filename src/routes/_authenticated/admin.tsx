@@ -11,6 +11,7 @@ import { listUsers, setUserPlan } from "@/lib/admin.functions";
 import { PLANS, type PlanId } from "@/lib/plans";
 
 export const Route = createFileRoute("/_authenticated/admin")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [{ title: "Administration — Lead SaaS" }, { name: "description", content: "Gère les abonnements des utilisateurs." }, { property: "og:title", content: "Administration Lead SaaS" }, { property: "og:description", content: "Attribue les formules aux utilisateurs." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(planQuery),
   component: Admin,

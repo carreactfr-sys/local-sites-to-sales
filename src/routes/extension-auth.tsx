@@ -6,6 +6,7 @@ import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/extension-auth")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Connexion de l'extension — Lead SaaS" },

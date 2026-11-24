@@ -21,6 +21,7 @@ const WHOP_LINKS: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/_authenticated/abonnement")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [{ title: "Abonnement — Lead SaaS" }, { name: "description", content: "Choisis la formule Lead SaaS adaptée à ton activité." }, { property: "og:title", content: "Abonnements Lead SaaS" }, { property: "og:description", content: "Starter, Pro ou Agence." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(planQuery),
   component: Abonnement,

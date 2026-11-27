@@ -28,7 +28,7 @@ function Privacy() {
         <h2>Stockage dans ton navigateur</h2>
         <p>Le site garde ta session de connexion et ton choix sur la mesure d'audience dans ton navigateur. L'extension Chrome garde ta session dans le stockage de Chrome.</p>
         <h2>Tes droits</h2>
-        <p>Tu peux demander l'accès, la correction ou la suppression de tes données en écrivant à <a className="underline" href="mailto:albkzk527@gmail.com">albkzk527@gmail.com</a>.</p>
+        <p>Tu peux demander l'accès, la correction ou la suppression de tes données en écrivant à <a className="underline" href="mailto:contact@leadsaas.eu">contact@leadsaas.eu</a>.</p>
       </div>
     </div>
   );

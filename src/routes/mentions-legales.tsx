@@ -21,7 +21,7 @@ const EDITOR = {
   name: "Lead SaaS",
   status: "Particulier",
   address: "[Adresse postale]",
-  email: "albkzk527@gmail.com",
+  email: "contact@leadsaas.eu",
 };
 
 function LegalNotice() {

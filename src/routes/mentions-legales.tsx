@@ -20,7 +20,6 @@ export const Route = createFileRoute("/mentions-legales")({
 const EDITOR = {
   name: "Lead SaaS",
   status: "Particulier",
-  address: "[Adresse postale]",
   email: "contact@leadsaas.eu",
 };
 
@@ -34,7 +33,6 @@ function LegalNotice() {
         <p>
           Le site leadsaas.eu est édité par {EDITOR.name}.<br />
           Statut : {EDITOR.status}<br />
-          Adresse : {EDITOR.address}<br />
           E-mail : <a className="underline" href={`mailto:${EDITOR.email}`}>{EDITOR.email}</a>
         </p>
         <p>Directeur de la publication : {EDITOR.name}.</p>

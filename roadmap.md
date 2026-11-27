@@ -6,4 +6,3 @@
 - [ ] Lancement des pubs chez Meta — attend le propriétaire (il publie lui-même, aucune action automatique)
 - [ ] Comptage des inscriptions — reporté par le propriétaire (« plus tard ») : pixel Meta non installé
 - [x] Barre cookies — décision du 24/11 : reste dans le tableau de bord seulement, rien sur l'accueil
-- [ ] Mentions légales : adresse postale à recevoir de l'utilisateur

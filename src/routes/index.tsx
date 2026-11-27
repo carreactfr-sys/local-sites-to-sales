@@ -144,7 +144,7 @@ function Landing() {
           ))}
         </div>
       </section>
-      <footer className="flex flex-wrap justify-center gap-4 border-t py-8 text-center text-sm text-muted-foreground"><span>© Lead SaaS</span><Link to="/confidentialite" className="underline">Confidentialité</Link><button type="button" onClick={openCookieSettings} className="underline">Paramètres des cookies</button></footer>
+      <footer className="flex flex-wrap justify-center gap-4 border-t py-8 text-center text-sm text-muted-foreground"><span>© Lead SaaS</span><Link to="/mentions-legales" className="underline">Mentions légales</Link><Link to="/confidentialite" className="underline">Confidentialité</Link><button type="button" onClick={openCookieSettings} className="underline">Paramètres des cookies</button></footer>
     </div>
   );
 }

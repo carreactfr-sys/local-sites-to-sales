@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as ExtensionAuthRouteImport } from './routes/extension-auth'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAbonnementRouteImport } from './routes/_authenticated/abonnement'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -50,6 +51,11 @@ const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
 const ExtensionAuthRoute = ExtensionAuthRouteImport.update({
   id: '/extension-auth',
   path: '/extension-auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/extension-auth': typeof ExtensionAuthRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/abonnement': typeof AuthenticatedAbonnementRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/extension-auth': typeof ExtensionAuthRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/abonnement': typeof AuthenticatedAbonnementRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/extension-auth': typeof ExtensionAuthRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/abonnement': typeof AuthenticatedAbonnementRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/confidentialite'
     | '/extension-auth'
+    | '/mentions-legales'
     | '/sitemap.xml'
     | '/abonnement'
     | '/admin'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/confidentialite'
     | '/extension-auth'
+    | '/mentions-legales'
     | '/sitemap.xml'
     | '/abonnement'
     | '/admin'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/confidentialite'
     | '/extension-auth'
+    | '/mentions-legales'
     | '/sitemap.xml'
     | '/_authenticated/abonnement'
     | '/_authenticated/admin'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   ExtensionAuthRoute: typeof ExtensionAuthRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiOauthGoogle_mailReturnRoute: typeof ApiOauthGoogle_mailReturnRoute
@@ -288,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/extension-auth'
       fullPath: '/extension-auth'
       preLoaderRoute: typeof ExtensionAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -415,6 +435,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
   ExtensionAuthRoute: ExtensionAuthRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiOauthGoogle_mailReturnRoute: ApiOauthGoogle_mailReturnRoute,

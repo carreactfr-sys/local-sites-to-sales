@@ -39,7 +39,7 @@ export function AppShell({ children, title, subtitle, action }: { children: Reac
             </Link>
           ))}
         </nav>
-        <div className="mb-2 flex gap-3 px-3 text-xs opacity-60"><Link to="/confidentialite">Confidentialité</Link><button type="button" onClick={openCookieSettings}>Cookies</button></div>
+        <div className="mb-2 flex flex-wrap gap-x-3 gap-y-1 px-3 text-xs opacity-60"><Link to="/mentions-legales">Mentions légales</Link><Link to="/confidentialite">Confidentialité</Link><button type="button" onClick={openCookieSettings}>Cookies</button></div>
         <button
           onClick={async () => {
             await qc.cancelQueries();
